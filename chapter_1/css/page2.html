@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- untuk menghubungkan file css ekternal -->
+    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+
+    <style>
+      /* ini contoh selector element */
+      h2 {
+        color: purple;
+        border: 1px blue solid;
+        /* diawali dengan atas kanan bawah kiri (searah jarum jam) */
+        padding: 10px 20px 30px 40px;
+
+        /* atau kayak gini sesuai kebutuhan aja
+        padding-top: 10px;
+        padding-right: 20px;
+        padding-bottom: 30px;
+        padding-left: 40px; */
+      }
+      /* contoh dari penerapan media query */
+      @media (min-width: 700px) {
+        h1 {
+          color: red;
+        }
+      }
+
+      /* menggunakan selector id */
+      #p-red {
+        color: red;
+      }
+      /* menggunakan selector class */
+      .p-purple {
+        color: purple;
+      }
+
+      /* penggunaan pseudo class yaitu hover (perubahaan ketika di sorot cursor) */
+      .btn-primary:hover {
+        background-color: aqua;
+        color: white;
+      }
+
+      /* penggunaan pseudo class yaitu focus (perubahan ketika ada aksi atau mengeklik) */
+      .btn-primary:focus {
+        background-color: green;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ini web pertama day 2</h1>
+    <h2>disini akan diterapkan css internal</h2>
+    <h3 style="color: aqua; font-weight: bold">
+      disini kita akan menerapkan css inline
+    </h3>
+    <p>
+      untuk membuat format html dengan mengetik ! lalu tab atau html :5 lalu tab
+    </p>
+    <div>
+      <p id="p-red">ini contoh child menggunaka selector id</p>
+    </div>
+    <p class="p-purple">ini contoh dengan selector class</p>
+    <button class="btn-primary">coba aja</button>
+    <a href="day2_introduction.html" class="btn">back to home</a>
+  </body>
+</html>
