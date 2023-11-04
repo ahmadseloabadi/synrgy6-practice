@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chapter3day2</title>
+  </head>
+  <body>
+    <script>
+      let person = { name: "selo", age: 23 };
+
+      //mengambil nilai nama dari object person (destruction)
+      //cara 1
+      let name = person.name;
+      //cara 2
+      // let { name } = person;
+
+      console.log("nama1", name);
+
+      //   jika ada 2 object dengan nama vaariable yang sama kita dapat menggunakan code seagai berikut
+      let person2 = { name: "handoyo", age: 23 };
+
+      let { name: name2 } = person2;
+      console.log("nama 2", name2);
+
+      //   ARRAY
+      let fruits = ["mangga", "apel", "pisang"];
+      //   [firstfruits, secondfruits, thirdfruits] = fruits;
+      //   [, , thirdfruits] = fruits;
+      //   console.log("buah ke 3 :", thirdfruits);
+
+      // menggunakan index array
+      console.log("buah pada array :", fruits);
+      console.log("length(panjang) pada array :", fruits, length);
+      console.log(
+        "menggunakan slice menampilkan buah 1 dan 2 :",
+        fruits.slice(0, 2)
+      );
+
+      console.log("buah ke 3 :", fruits[2]);
+      //assignment item pada array
+      fruits[0] = "semongko";
+      console.log("assignment item array :", fruits);
+
+      //for loop with array
+      for (let i = 0; i < fruits.length; i++) {
+        console.log("buah ke " + i + " adalah buah " + fruits[i]);
+      }
+    </script>
+    <script src="latihansoal.js"></script>
+  </body>
+</html>
