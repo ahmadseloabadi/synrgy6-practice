@@ -1,0 +1,10 @@
+/* ini merupakan contoh dari penerapan css eksternal */
+h1 {
+  color: blue;
+  border: 1px black solid;
+}
+
+p {
+  color: red;
+  font-weight: bold;
+}
