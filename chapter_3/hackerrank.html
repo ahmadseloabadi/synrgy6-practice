@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hacker rank</title>
+  </head>
+  <body>
+    <script>
+      //no 1
+      let a1 = 2;
+      let b1 = 3;
+      function solveMeFirst(a, b) {
+        return a + b;
+      }
+
+      console.log("output no 1 :", solveMeFirst(a1, b1));
+      //no 2
+      let ar = [1, 2, 3, 4, 10, 11];
+
+      function simpleArraySum(ar) {
+        let score = 0;
+        for (let i = 0; i < ar.length; i++) {
+          score = score + ar[i]; //score += ar[i]
+        }
+        return score;
+      }
+
+      console.log("output no 2 :", simpleArraySum(ar));
+      //no 3
+      const a3 = [5, 6, 7];
+      const b3 = [3, 6, 10];
+      function compareTriplets(a, b) {
+        let score = [0, 0];
+
+        for (let i = 0; i < a.length; i++)
+          a[i] > b[i] ? score[0]++ : a[i] < b[i] ? score[1]++ : "";
+
+        return score;
+      }
+
+      console.log("output no 3 :", compareTriplets(a3, b3));
+      //no 4
+
+      let ar4 = [100000001, 100000002, 100000003, 100000004];
+      function aVeryBigSum(ar) {
+        // let sum = (accumulator, currentValue) => accumulator + currentValue;
+        // return ar.reduce(sum);
+        let score = 0;
+        for (let i = 0; i < ar.length; i++) {
+          score = score + ar[i]; //score += ar[i]
+        }
+        return score;
+      }
+
+      console.log("output no 4 :", aVeryBigSum(ar4));
+
+      // no 5
+      let arr5 = [-4, 3, -9, 0, 4, 1];
+      function plusMinus(arr) {
+        //buat wadah hasil, dan jumlah nilai pos,neg,dan nol
+        let hasil = [0, 0, 0];
+        let pos = 0;
+        let neg = 0;
+        let zero = 0;
+        //buat perulangan untuk mengakses array
+        for (let i = 0; i < arr.length; i++) {
+          //buat cek kondisi nilai pada array
+          if (arr[i] > 0) {
+            pos++;
+          } else if (arr[i] < 0) {
+            neg++;
+          } else {
+            zero++;
+          }
+        }
+        //buat pembagian nilai array dengan panjang array
+        hasil[0] = pos / arr.length;
+        hasil[1] = neg / arr.length;
+        hasil[2] = zero / arr.length;
+
+        console.log(hasil[0].toFixed(6));
+        console.log(hasil[1].toFixed(6));
+        console.log(hasil[2].toFixed(6));
+      }
+      console.log("output no 5 :", plusMinus(arr5));
+      //no 6
+      function staircase(n) {
+        let pola = "";
+        for (let i = 1; i <= n; i++) {
+          for (let j = n - 1; j >= i; j--) {
+            pola += " ";
+          }
+          for (let k = 1; k <= i; k++) {
+            pola += "k";
+          }
+          pola += "\n";
+        }
+        return pola;
+      }
+      console.log(staircase(6));
+      //no 7
+      let arr7 = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [5, 8, 9],
+      ];
+      function diagonalDifference(arr) {
+        let leftDiagonal = 0;
+        let rightDiagonal = 0;
+        for (let i = 0; i < arr.length; i++) {
+          leftDiagonal += arr[i][i];
+          rightDiagonal += arr[i][arr.length - 1 - i];
+        }
+        return leftDiagonal - rightDiagonal;
+      }
+
+      console.log("output 7 :", diagonalDifference(arr7));
+
+      //no 8
+
+      const arr8 = [1, 5, 3, 7, 4];
+      function miniMaxSum(arr) {
+        let minSum = 0;
+        let maxSum = 0;
+
+        let sortArray = arr.sort((a, b) => a - b);
+        for (let i = 0; i < sortArray.length; i++) {
+          if (i < sortArray.length - 1) {
+            minSum += sortArray[i];
+          }
+          if (i > 0) {
+            maxSum += sortArray[i];
+          }
+        }
+        console.log(minSum, maxSum);
+      }
+
+      miniMaxSum(arr8);
+
+      console.log(arr8[0]);
+    </script>
+  </body>
+</html>
