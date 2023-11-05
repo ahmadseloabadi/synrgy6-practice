@@ -1,0 +1,1 @@
+ini content yang dibuat/ditulis dari nodejs dengan modul fs 
