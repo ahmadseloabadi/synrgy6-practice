@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="style.css
+    "
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- Side-Nav -->
+    <div
+      class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
+      id="sidebar"
+    >
+      <ul class="nav flex-column text-white w-100">
+        <a href="#" class="nav-link h3 text-white my-2">
+          <img src="public/images/navbar_logo.png" alt="" srcset="" />
+        </a>
+        <li href="#" class="nav-link">
+          <i class="bx bxs-dashboard"></i>
+          <a class="mx-2 text-decoration-none text-black-50 fw-bold fs-5"
+            >Cars</a
+          >
+        </li>
+        <li href="#" class="nav-link">
+          <i class="bx bx-user-check"></i>
+          <a class="mx-2 text-decoration-none text-black-50 fw-bold fs-5"
+            >List Cars</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-nav">
+        <a href="/">
+          <img
+            src="public/images/sidebar_logo.png"
+            class="logo img-fluid"
+            alt=""
+          />
+        </a>
+        <ul>
+          <li>
+            <a href="#"><i class="bi bi-house-door fs-3"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="#" id="cars-btn"
+              ><i class="bi bi-truck fs-3"></i> <br />Cars</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- sidebar -->
+
+    <!-- Main Wrapper -->
+    <div class="p-1 my-container active-cont">
+      <!-- Top Nav -->
+      <nav class="navbar navbar-expand-lg top-navbar">
+        <a class="btn border-0 p-0" id="menu-btn"
+          ><i class="bi bi-list fs-4"></i
+        ></a>
+        <div class="collapse navbar-collapse gap-4" id="navbarSupportedContent">
+          <form class="d-flex ms-auto" role="search">
+            <input
+              class="form-control me-2 rounded-1"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              style="border: 1px solid #d0d0d0"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+              <p
+                href="#"
+                class="rounded-circle d-flex align-items-center justify-content-center mb-0 text-black fw-medium fs-5"
+                style="width: 38px; height: 38px; background: grey"
+              >
+                U
+              </p>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                ndoyyyy
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Log-out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- main content -->
+      <section class="form-add-car">
+        <div class="container-fluid">
+          <div class="row mt-4 pt-3">
+            <div class="col">
+              <p>
+                <strong>cars ></strong> <strong>list cars ></strong> Add New Car
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <form>
+                <div class="mb-3 d-flex flex-row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="form-label m-0 p-2"
+                    style="width: 10%"
+                    >Nama</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control rounded-1 border-1 w-25 p-2"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="namamubiji"
+                  />
+                </div>
+                <div class="mb-3 d-flex flex-row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="form-label m-0 p-2"
+                    style="width: 10%"
+                    >Harga</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control rounded-1 border-1 w-25 p-2"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="namamubiji"
+                  />
+                </div>
+                <div class="mb-3 d-flex flex-row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="form-label m-0 p-2"
+                    style="width: 10%"
+                    >Foto</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control rounded-1 border-1 w-25 p-2"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="namamubiji"
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!--End Top Nav -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/99dc19792f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>

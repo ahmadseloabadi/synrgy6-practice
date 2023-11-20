@@ -327,7 +327,7 @@ try {
 }
 
 // 3. protected : dimana kita mendefinikan property/method secara protected,hanya bisa di akses oleh child classnya
-// jika di js protected dapat dilakukan dengan menggunakan prefix' _' sebelum nama variable atau method
+// jika di js protected dapat dilakukan dengan menggunakan prefix'_' sebelum nama variable atau method
 
 class Human7 {
   constructor(name, address) {

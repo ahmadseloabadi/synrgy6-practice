@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="style.css
+    "
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- Side-Nav -->
+    <div
+      class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
+      id="sidebar"
+    >
+      <ul class="nav flex-column text-white w-100">
+        <a href="#" class="nav-link h3 text-white my-2">
+          <img src="public/images/navbar_logo.png" alt="" srcset="" />
+        </a>
+        <li href="#" class="nav-link">
+          <i class="bx bxs-dashboard"></i>
+          <a class="mx-2 text-decoration-none text-black-50 fw-bold fs-5"
+            >Cars</a
+          >
+        </li>
+        <li href="#" class="nav-link">
+          <i class="bx bx-user-check"></i>
+          <a class="mx-2 text-decoration-none text-black-50 fw-bold fs-5"
+            >List Cars</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-nav">
+        <a href="/">
+          <img
+            src="public/images/sidebar_logo.png"
+            class="logo img-fluid"
+            alt=""
+          />
+        </a>
+        <ul>
+          <li>
+            <a href="#"><i class="bi bi-house-door fs-3"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="#" id="cars-btn"
+              ><i class="bi bi-truck fs-3"></i> <br />Cars</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- sidebar -->
+
+    <!-- Main Wrapper -->
+    <div class="p-1 my-container active-cont">
+      <!-- Top Nav -->
+      <nav class="navbar navbar-expand-lg top-navbar">
+        <a class="btn border-0 p-0" id="menu-btn"
+          ><i class="bi bi-list fs-4"></i
+        ></a>
+        <div class="collapse navbar-collapse gap-4" id="navbarSupportedContent">
+          <form class="d-flex ms-auto" role="search">
+            <input
+              class="form-control me-2 rounded-1"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              style="border: 1px solid #d0d0d0"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+              <p
+                href="#"
+                class="rounded-circle d-flex align-items-center justify-content-center mb-0 text-black fw-medium fs-5"
+                style="width: 38px; height: 38px; background: grey"
+              >
+                U
+              </p>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                ndoyyyy
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Log-out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!--End Top Nav -->
+
+      <!-- main content -->
+      <section class="card-collection">
+        <div class="container-fluid">
+          <!-- list page -->
+          <div class="row mt-5">
+            <div class="col">
+              <p><strong>cars ></strong> list cars</p>
+            </div>
+          </div>
+          <!-- end list page -->
+          <!-- add car -->
+          <div class="row mt-4">
+            <div class="col">
+              <h2><strong>List Car</strong></h2>
+            </div>
+            <div class="col text-end me-4">
+              <button class="btn btn-primary">
+                <i class="bi bi-plus"></i>Add New car
+              </button>
+            </div>
+          </div>
+
+          <!-- list car_size -->
+          <div class="row mt-4">
+            <div class="col gap-3 d-flex">
+              <a href="#" class="btn btn-outline-dark">All</a>
+              <a href="#" class="btn btn-outline-dark">SmaLL</a>
+              <a href="#" class="btn btn-outline-dark">Medium</a>
+              <a href="#" class="btn btn-outline-dark">Large</a>
+            </div>
+          </div>
+          <!-- end list car_size -->
+          <!-- card cars -->
+          <div
+            class="row row-cols-auto row-gap-3 column-gap-3 justify-content-start mt-4"
+          >
+            <div class="col">
+              <div class="card shadow bg-white border-0">
+                <img
+                  src="public/images/car01.min.jpg"
+                  class="card-img-top img-fluid"
+                  style="height: 190px; object-fit: cover"
+                />
+                <div class="card-body" style="font-size: 14px; padding: 24px">
+                  <p class="card-title">Nama/tipe</p>
+                  <p class="fw-bold">Rp 400000 / hari</p>
+
+                  <div>
+                    <i class="bi bi-clock me-2"></i>Updated at 4 Apr 2022, 09.00
+                  </div>
+                  <div class="card-button mt-4 d-flex">
+                    <button
+                      href="#"
+                      class="btn btn-outline-danger justify-content-center align-items-center border-1 fw-bold"
+                      style="
+                        font-size: 14px;
+                        padding: 8px 12px;
+                        height: 48px;
+                        width: 143.5px;
+                      "
+                    >
+                      <i class="bi bi-trash me-2"></i>Delete
+                    </button>
+                    <button
+                      href="#"
+                      class="btn btn-success justify-content-center align-items-center border-1 fw-bold"
+                      style="
+                        font-size: 14px;
+                        padding: 8px 12px;
+                        height: 48px;
+                        width: 143.5px;
+                      "
+                    >
+                      <i class="bi bi-pencil-square me-2"></i>Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end card cars -->
+        </div>
+      </section>
+      <!-- end main content -->
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/99dc19792f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>

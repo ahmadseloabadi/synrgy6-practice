@@ -1,0 +1,121 @@
+:root {
+  --neutral-1: #ffff;
+  --neutral-10: #ffff;
+  --primary-lime-green-04: #5cb85f;
+  --primary-dark-blue-04: #0d28a6;
+  --allert-danger: #fa2c5a;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.side-navbar {
+  width: 220px;
+  height: 100%;
+  position: fixed;
+  left: 70px;
+  margin-left: -300px;
+  transition: 0.5s;
+}
+
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+  background-color: #ffffff26;
+}
+
+.my-container {
+  transition: 0.4s;
+  margin-left: 70px;
+}
+
+.active-nav {
+  margin-left: 0px;
+}
+
+/* for main section */
+.active-cont {
+  margin-left: 290px;
+}
+
+.my-container input {
+  border-radius: 2rem;
+  padding: 2px 20px;
+}
+
+.navbar {
+  padding: 16px 24px;
+  background: #fff;
+  position: relative;
+  align-items: center;
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  padding: 0px;
+}
+
+.navbar-nav {
+  font-size: 14px;
+  font-weight: var(--fwreguler);
+}
+
+.custom-navbar {
+  padding: 0px 136px 37px 0px;
+}
+/* 
+.card-collection {
+  left: 70px !important;
+} */
+
+.card {
+  display: flex;
+  width: 351px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.card-button {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.sidebar {
+  position: fixed;
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar .sidebar-nav {
+  display: inline-block;
+  width: 70px;
+  background: #0d28a6;
+}
+
+.sidebar .logo {
+  display: block;
+  margin: 18px auto;
+}
+
+.sidebar .sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .sidebar-nav ul li > a {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+  padding: 10px 3px;
+  display: block;
+  text-decoration: none;
+  transition: ease 0.5s;
+}
