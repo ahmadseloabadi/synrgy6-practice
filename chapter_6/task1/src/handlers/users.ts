@@ -3,6 +3,9 @@ import { DefaultResponse } from "../models/dto/default";
 import { User } from "../models/entity/user";
 import { UserRequest } from "../models/dto/user";
 import UsersServices from "../services/users";
+import multer from "multer";
+import express from "express";
+import { fileURLToPath } from "url";
 
 class UsersHandler {
   async getUsersByName(req: Request, res: Response) {
@@ -146,6 +149,13 @@ class UsersHandler {
       payload
     );
 
+    const userPayload: UserRequest = {
+      name: payload.name,
+      email: payload.email,
+      password: payload.password,
+      role: payload.role,
+    };
+
     if (!updatedUser) {
       const Response: DefaultResponse = {
         status: "ERROR",
@@ -159,7 +169,8 @@ class UsersHandler {
       status: "UPDATED",
       message: "User successfully updated",
       data: {
-        update_user: updatedUser,
+        old_user: updatedUser,
+        update_user: userPayload,
       },
     };
     res.status(200).send(response);

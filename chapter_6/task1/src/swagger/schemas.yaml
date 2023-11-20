@@ -76,6 +76,7 @@ components:
           example: bos123456
         profile_picture_url:
           type: string
+          format: binary
         role:
           type: string
           example: user
@@ -95,6 +96,5 @@ components:
               type: string
             profile_picture_url:
               type: string
-              format: binary
             role:
               type: string
