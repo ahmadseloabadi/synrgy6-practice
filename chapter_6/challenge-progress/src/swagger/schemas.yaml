@@ -1,0 +1,100 @@
+components:
+  schemas:
+    Default:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+    AuthLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: superadmin@superadmin.com
+        password:
+          type: string
+          example: superadmin
+        role:
+          type: string
+          example: superadmin
+    AuthLoginResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+    AuthRegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: coba
+        email:
+          type: string
+          example: coba@gmail.com
+        password:
+          type: string
+          example: coba123456
+        profile_picture_url:
+          type: string
+          example: coba.png
+        role:
+          type: string
+          example: user
+    AuthRegisterResponse:
+      type: object
+      properties:
+        registered_user:
+          type: object
+          properties:
+            id:
+              type: integer
+            email:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+            profile_picture_url:
+              type: string
+            role:
+              type: string
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: bos
+        email:
+          type: string
+          example: bos@gmail.com
+        password:
+          type: string
+          example: bos123456
+        profile_picture_url:
+          type: string
+          format: binary
+        role:
+          type: string
+          example: user
+    UserResponse:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            email:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+            profile_picture_url:
+              type: string
+            role:
+              type: string
