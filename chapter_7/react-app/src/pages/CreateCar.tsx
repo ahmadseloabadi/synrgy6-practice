@@ -10,7 +10,7 @@ export default function CreateCar() {
   const [car_rentperday, setCarRentPerDay] = useState("");
   const [car_img, setCarImg] = useState(null);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: any) => {
     const files = e.target.files;
 
     if (files && files.length > 0) {
