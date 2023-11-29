@@ -8,6 +8,7 @@ import { swaggerConfig } from "../utils/swaggerOption";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import { Context } from "vm";
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,6 +16,7 @@ const app: Application = express();
 const PORT = process.env.APP_PORT;
 
 app.use(express.json());
+app.use(cors());
 declare global {
   namespace Express {
     interface Request {
@@ -34,7 +36,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //Define routers
 //cars
-app.get("/api/cars", AuthMiddleware.authenticate, carsHandler.getCars);
+app.get("/api/cars", carsHandler.getCars);
 app.get("/api/cars/:id", AuthMiddleware.authenticate, carsHandler.getCarsById);
 app.post(
   "/api/cars",
