@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,8 +17,6 @@ export default function Login() {
           value={email}
           onChange={({ target }) => {
             setEmail(target.value);
-
-            console.log("email value", email);
           }}
           placeholder="Masukkan email"
         />
@@ -24,8 +24,6 @@ export default function Login() {
           value={password}
           onChange={({ target }) => {
             setPassword(target.value);
-
-            console.log("password value", password);
           }}
           type="password"
           placeholder="Masukkan password"
@@ -33,7 +31,7 @@ export default function Login() {
 
         <button
           onClick={async (e) => {
-            e.preventDefault(); //agar halaman tidak merefresh saat button di klik
+            e.preventDefault();
 
             const payload = {
               email: email,
@@ -59,7 +57,9 @@ export default function Login() {
               "access_token",
               responseJson.data.access_token
             );
-            console.log(responseJson.data.access_token);
+
+            // If login succeed, redirect ke home
+            navigate("/");
           }}
         >
           Login
