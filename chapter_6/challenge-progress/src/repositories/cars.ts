@@ -2,9 +2,9 @@ import { Car, CarEntity } from "../models/entity/car";
 
 class CarsRepository {
   static async getCars(): Promise<Car[]> {
-    const listCar = await CarEntity.query().withGraphFetched(
-      "[created_by,updated_by,deleted_by]"
-    );
+    const listCar = await CarEntity.query()
+      .withGraphFetched("[created_by,updated_by,deleted_by]")
+      .whereNull("delete_at");
     return listCar;
   }
 
