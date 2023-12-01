@@ -143,7 +143,7 @@ export default function UpdateCar() {
 
                 const responseJson = await response.json();
 
-                if (response.status !== 200 || 201) {
+                if (response.status !== 200) {
                   alert("error: " + responseJson.message);
                 }
 

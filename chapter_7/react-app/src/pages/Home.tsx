@@ -31,6 +31,8 @@ const cars_api_base_url = "http://localhost:8000";
 export default function Home() {
   const [cars, setCars] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [carToDelete, setCarToDelete] = useState(null);
 
   useEffect(() => {
     //akan di running pertama kali saat halaman di load
@@ -53,7 +55,7 @@ export default function Home() {
     checkIsLoggedIn();
   }, []);
 
-  const deleteCar = async (carId: number) => {
+  const deleteCar = async (carId: any) => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
@@ -62,26 +64,45 @@ export default function Home() {
         console.error("User not logged in");
         return;
       }
-      alert("yakin mau hapus??");
-
-      const response = await fetch(`${cars_api_base_url}/api/cars/${carId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      if (response.ok) {
-        // Update the state to reflect the changes after successful deletion
-        setCars((prevCars) =>
-          prevCars.filter((car: CarResponse) => car.id !== carId)
-        );
-      } else {
-        // Handle errors if the deletion fails
-        console.error("Failed to delete car:", response.statusText);
-      }
+      setCarToDelete(carId);
+      setShowAlert(true);
     } catch (error: any) {
       console.error("Error deleting car:", error.message);
+    }
+  };
+  const handleConfirmation = async (confirmed: boolean) => {
+    setShowAlert(false);
+
+    if (confirmed) {
+      try {
+        const accessToken = localStorage.getItem("access_token");
+
+        if (!accessToken) {
+          console.error("User not logged in");
+          return;
+        }
+        const response = await fetch(
+          cars_api_base_url + "/api/cars/" + carToDelete,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          // Update the state to reflect the changes after successful deletion
+          setCars((prevCars) =>
+            prevCars.filter((car: CarResponse) => car.id !== carToDelete)
+          );
+        } else {
+          // Handle errors if the deletion fails
+          console.error("Failed to delete car:", response.statusText);
+        }
+      } catch (error: any) {
+        console.error("Error deleting car:", error.message);
+      }
     }
   };
 
@@ -140,123 +161,123 @@ export default function Home() {
                     Rp {car.car_rentperday} / hari
                   </p>
                   <p className="font-normal">Car size : {car.car_size}</p>
-                  <h3 className="font-normal">created_by</h3>
-                  {car.created_by && (
-                    <ul className="pl-4">
-                      <li className="font-normal">id : {car.created_by.id}</li>
-                      <li className="font-normal">
-                        username : {car.created_by.name}
-                      </li>
-                      <li className="font-normal">
-                        email : {car.created_by.email}
-                      </li>
-                    </ul>
+
+                  {car.created_by.id && (
+                    <div>
+                      <h3 className="font-normal">created_by</h3>
+                      <ul className="pl-4">
+                        <li className="font-normal">
+                          id : {car.created_by.id}
+                        </li>
+                        <li className="font-normal">
+                          username : {car.created_by.name}
+                        </li>
+                        <li className="font-normal">
+                          email : {car.created_by.email}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                  {car.updated_by.id && (
+                    <div>
+                      <h3 className="font-normal">updated_by</h3>
+                      <ul className="pl-4">
+                        <li className="font-normal">
+                          id : {car.updated_by.id}
+                        </li>
+                        <li className="font-normal">
+                          username : {car.updated_by.name}
+                        </li>
+                        <li className="font-normal">
+                          email : {car.updated_by.email}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                  {car.deleted_by.id && (
+                    <div>
+                      <h3 className="font-normal">deleted_by</h3>
+                      <ul className="pl-4">
+                        <li className="font-normal">
+                          id : {car.deleted_by.id}
+                        </li>
+                        <li className="font-normal">
+                          username : {car.deleted_by.name}
+                        </li>
+                        <li className="font-normal">
+                          email : {car.deleted_by.email}
+                        </li>
+                      </ul>
+                    </div>
                   )}
 
-                  <h3 className="font-normal">updated_by</h3>
-                  {car.updated_by.id ? (
-                    <ul className="pl-4">
-                      <li className="font-normal">id : {car.updated_by.id}</li>
-                      <li className="font-normal">
-                        username : {car.updated_by.name}
-                      </li>
-                      <li className="font-normal">
-                        email : {car.updated_by.email}
-                      </li>
-                    </ul>
-                  ) : (
-                    <p className="card-title font-normal pl-4">
-                      data belum diupdate
-                    </p>
+                  {car.create_at && (
+                    <div className="flex gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <p className="font-light text-sm">
+                        create_at {car.create_at?.toString()}
+                      </p>
+                    </div>
+                  )}
+                  {car.update_at && (
+                    <div className="flex gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <p className="font-light text-sm">
+                        update_at {car.update_at?.toString()}
+                      </p>
+                    </div>
+                  )}
+                  {car.delete_at && (
+                    <div className="flex gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <p className="font-light text-sm">
+                        delete_at {car.delete_at?.toString()}
+                      </p>
+                    </div>
                   )}
 
-                  <h3 className="font-normal mt-2">deleted_by</h3>
-
-                  {car.deleted_by.id ? (
-                    <ul className="pl-4">
-                      <li className="font-normal">id : {car.deleted_by.id}</li>
-                      <li className="font-normal">
-                        username : {car.deleted_by.name}
-                      </li>
-                      <li className="font-normal">
-                        email : {car.deleted_by.email}
-                      </li>
-                    </ul>
-                  ) : (
-                    <p className="card-title font-normal pl-4">
-                      data belum didelete
-                    </p>
-                  )}
-
-                  <div className="flex gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5 "
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <p className="font-light text-sm">
-                      create_at{" "}
-                      {car.create_at
-                        ? car.create_at?.toString()
-                        : "data blm dibuat"}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <p className="font-light text-sm">
-                      update_at{" "}
-                      {car.create_at
-                        ? car.update_at?.toString()
-                        : "data blm diupdate"}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <p className="font-light text-sm">
-                      delete_at{" "}
-                      {car.delete_at
-                        ? car.delete_at?.toString()
-                        : "data blm didelete"}
-                    </p>
-                  </div>
                   <div className="card-button mt-4 flex gap-2">
                     <button
-                      className="inline-flex bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white border border-red-500 hover:border-transparent rounded  w-[143.5px] h-12 items-center justify-center"
+                      className="inline-flex bg-transparent hover:bg-red-500 text-red-700 font-bold hover:text-white border border-red-500 hover:border-transparent rounded  w-[143.5px] h-12 items-center justify-center"
                       onClick={() => deleteCar(car.id)}
                     >
                       <svg
@@ -275,8 +296,11 @@ export default function Home() {
                       </svg>
                       Delete
                     </button>
-                    <button className="inline-flex bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-[143.5px] h-12 items-center justify-center">
-                      <Link to={`/update-car/${car.id}`}>
+                    <button className=" bg-green-500 hover:bg-green-700 text-white  rounded w-[143.5px] h-12 ">
+                      <Link
+                        to={`/update-car/${car.id}`}
+                        className="inline-flex font-bold justify-center"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -301,6 +325,40 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {showAlert && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded-[4px] w-96">
+            <div className="flex flex-col w-full items-center gap-6">
+              <img
+                src="../src/assets/img-BeepBeep.png"
+                className=" h-[121px] w-[153px]"
+              />
+              <p className="text-lg font-semibold mb-4">Menghapus Data Mobil</p>
+            </div>
+            <div className="alertbody text-center mb-6">
+              <p>
+                Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin
+                ingin menghapus?
+              </p>
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
+                onClick={() => handleConfirmation(true)}
+              >
+                Ya
+              </button>
+              <button
+                className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
+                onClick={() => handleConfirmation(false)}
+              >
+                Tidak
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
