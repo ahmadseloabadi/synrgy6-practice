@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const tweets_api_base_url = "http://localhost:8000";
 
-export default function CreateCar() {
+export default function UpdateCar() {
   const navigate = useNavigate();
+  const { carId } = useParams();
   const [car_name, setCarName] = useState("");
   const [car_size, setCarSize] = useState("");
   const [car_rentperday, setCarRentPerDay] = useState("");
@@ -17,7 +18,6 @@ export default function CreateCar() {
       setCarImg(files[0]);
     }
   };
-
   return (
     <div className="flex items-center  justify-center px-6 py-8 mx-auto md:h-screen  lg:py-0">
       <div className="form p-7 dark:bg-gray-900 rounded-xl ">
@@ -129,9 +129,9 @@ export default function CreateCar() {
                 }
 
                 const response = await fetch(
-                  tweets_api_base_url + "/api/cars",
+                  tweets_api_base_url + "/api/cars/" + carId,
                   {
-                    method: "post",
+                    method: "PATCH",
                     headers: {
                       Authorization: `Bearer ${localStorage.getItem(
                         "access_token"
@@ -143,7 +143,7 @@ export default function CreateCar() {
 
                 const responseJson = await response.json();
 
-                if (response.status !== 201) {
+                if (response.status !== 200 || 201) {
                   alert("error: " + responseJson.message);
                 }
 
