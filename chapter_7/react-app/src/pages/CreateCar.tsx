@@ -1,14 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidenav from "./Sidenav";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 const tweets_api_base_url = "http://localhost:8000";
 
 export default function CreateCar() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [car_name, setCarName] = useState("");
   const [car_size, setCarSize] = useState("");
   const [car_rentperday, setCarRentPerDay] = useState("");
   const [car_img, setCarImg] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+  useEffect(() => {
+    const checkIsLoggedIn = () => {
+      const accessToken = localStorage.getItem("access_token");
+
+      if (accessToken) setIsLoggedIn(true);
+      else setIsLoggedIn(false);
+    };
+
+    checkIsLoggedIn();
+  }, []);
 
   const handleFileChange = (e: any) => {
     const files = e.target.files;
@@ -17,143 +36,171 @@ export default function CreateCar() {
       setCarImg(files[0]);
     }
   };
+  const logoutHandler = () => {
+    localStorage.removeItem("access_token");
+
+    setIsLoggedIn(false);
+  };
 
   return (
-    <div className="flex items-center  justify-center px-6 py-8 mx-auto md:h-screen  lg:py-0">
-      <div className="form p-7 dark:bg-gray-900 rounded-xl ">
-        <h1 className="flex items-center justify-center mb-6 text-2xl font-semibold dark:text-white">
-          Create New Car!
-        </h1>
-
-        <form className="w-full max-w-sm">
-          <div className="mb-3 flex flex-row">
-            <div className="md:w-1/3">
-              <label
-                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                htmlFor="inline-full-name"
-              >
-                Name car
-              </label>
+    <div className=" flex  min-h-fit">
+      <Sidenav />
+      <div className={`flex flex-col w-full min-h-screen ${isSidebarOpen}`}>
+        <Navbar
+          onSidebarToggle={toggleSidebar}
+          isLoggedIn={isLoggedIn}
+          onLogout={logoutHandler}
+        />
+        <div className="main-content flex h-full ">
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          <div className="form-input flex flex-col gap-y-4 items-start   w-full bg-gray-100 pl-6">
+            <div className="flex items-center justify-between ">
+              <h1 className="font-bold text-xl"> Add New Car</h1>
             </div>
-            <div className="md:w-2/3">
-              <input
-                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="inline-full-name"
-                type="text"
-                value={car_name}
-                onChange={({ target }) => {
-                  setCarName(target.value);
+            <div className="form p-7 dark:bg-white rounded-sm w-full ">
+              <form className="w-full max-w-sm">
+                <div className="mb-3 flex flex-row">
+                  <div className="md:w-1/3">
+                    <label
+                      className="block  font-bold md:text-right mb-1 md:mb-0 pr-4"
+                      htmlFor="inline-full-name"
+                    >
+                      Name car
+                    </label>
+                  </div>
+                  <div className="md:w-2/3">
+                    <input
+                      className=" appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
+                      id="inline-full-name"
+                      type="text"
+                      value={car_name}
+                      onChange={({ target }) => {
+                        setCarName(target.value);
+                      }}
+                      placeholder="Enter car name"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3 flex flex-row">
+                  <div className="md:w-1/3">
+                    <label
+                      className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+                      htmlFor="inline-full-name"
+                    >
+                      car size
+                    </label>
+                  </div>
+                  <div className="md:w-2/3">
+                    <input
+                      className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
+                      id="inline-full-name"
+                      type="text"
+                      value={car_size}
+                      onChange={({ target }) => {
+                        setCarSize(target.value);
+                      }}
+                      placeholder="Enter car size"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3 flex flex-row">
+                  <div className="md:w-1/3">
+                    <label
+                      className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+                      htmlFor="inline-full-name"
+                    >
+                      car rentperday
+                    </label>
+                  </div>
+                  <div className="md:w-2/3">
+                    <input
+                      className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
+                      id="inline-full-name"
+                      type="number"
+                      value={car_rentperday}
+                      onChange={({ target }) => {
+                        setCarRentPerDay(target.value);
+                      }}
+                      placeholder="Enter rent per day"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3 flex flex-row">
+                  <div className="md:w-1/3">
+                    <label
+                      className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+                      htmlFor="inline-full-name"
+                    >
+                      car img
+                    </label>
+                  </div>
+                  <div className="md:w-2/3">
+                    <input
+                      className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
+                      id="inline-full-name"
+                      type="file"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="button-contain flex gap-x-4 items-end h-full mb-10">
+              <button
+                className="inline-flex bg-transparent hover:bg-blue-900 dark:text-blue-900 font-bold hover:text-white border dark:border-blue-900 hover:border-transparent rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
+                typeof="button"
+                onClick={async (e) => {
+                  e.preventDefault();
+
+                  navigate("/");
                 }}
-                placeholder="Enter car name"
-              />
-            </div>
-          </div>
-
-          <div className="mb-3 flex flex-row">
-            <div className="md:w-1/3">
-              <label
-                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                htmlFor="inline-full-name"
               >
-                car size
-              </label>
-            </div>
-            <div className="md:w-2/3">
-              <input
-                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="inline-full-name"
-                type="text"
-                value={car_size}
-                onChange={({ target }) => {
-                  setCarSize(target.value);
-                }}
-                placeholder="Enter car size"
-              />
-            </div>
-          </div>
+                Cancel
+              </button>
+              <button
+                className="inline-flex  bg-blue-900 hover:bg-gray-300 dark:text-white font-bold hover:text-white border dark:border-blue-900 hover:border-gray-300 rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
+                typeof="button"
+                onClick={async (e) => {
+                  e.preventDefault();
 
-          <div className="mb-3 flex flex-row">
-            <div className="md:w-1/3">
-              <label
-                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                htmlFor="inline-full-name"
-              >
-                car rentperday
-              </label>
-            </div>
-            <div className="md:w-2/3">
-              <input
-                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="inline-full-name"
-                type="number"
-                value={car_rentperday}
-                onChange={({ target }) => {
-                  setCarRentPerDay(target.value);
-                }}
-                placeholder="Enter rent per day"
-              />
-            </div>
-          </div>
-
-          <div className="mb-3 flex flex-row">
-            <div className="md:w-1/3">
-              <label
-                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                htmlFor="inline-full-name"
-              >
-                car img
-              </label>
-            </div>
-            <div className="md:w-2/3">
-              <input
-                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="inline-full-name"
-                type="file"
-                onChange={handleFileChange}
-              />
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <button
-              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded "
-              typeof="button"
-              onClick={async (e) => {
-                e.preventDefault();
-
-                const formData = new FormData();
-                formData.append("car_name", car_name);
-                formData.append("car_size", car_size);
-                formData.append("car_rentperday", car_rentperday);
-                if (car_img) {
-                  formData.append("car_img", car_img);
-                }
-
-                const response = await fetch(
-                  tweets_api_base_url + "/api/cars",
-                  {
-                    method: "post",
-                    headers: {
-                      Authorization: `Bearer ${localStorage.getItem(
-                        "access_token"
-                      )}`,
-                    },
-                    body: formData,
+                  const formData = new FormData();
+                  formData.append("car_name", car_name);
+                  formData.append("car_size", car_size);
+                  formData.append("car_rentperday", car_rentperday);
+                  if (car_img) {
+                    formData.append("car_img", car_img);
                   }
-                );
 
-                const responseJson = await response.json();
+                  const response = await fetch(
+                    tweets_api_base_url + "/api/cars",
+                    {
+                      method: "post",
+                      headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                          "access_token"
+                        )}`,
+                      },
+                      body: formData,
+                    }
+                  );
 
-                if (response.status !== 201) {
-                  alert("error: " + responseJson.message);
-                }
+                  const responseJson = await response.json();
 
-                navigate("/");
-              }}
-            >
-              Submit
-            </button>
+                  if (response.status !== 201) {
+                    alert("error: " + responseJson.message);
+                  }
+
+                  navigate("/");
+                }}
+              >
+                Save
+              </button>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

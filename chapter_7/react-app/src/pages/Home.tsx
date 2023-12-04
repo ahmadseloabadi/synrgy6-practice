@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
+import {
+  ClockIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-// import Login from "./Login";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import Sidenav from "./Sidenav";
 
 interface UserResponse {
   id: number;
@@ -33,6 +40,10 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [carToDelete, setCarToDelete] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   useEffect(() => {
     //akan di running pertama kali saat halaman di load
@@ -112,253 +123,189 @@ export default function Home() {
     setIsLoggedIn(false);
   };
   return (
-    <div className="flex w-full bg-gray-300 place-content-center min-h-screen">
-      <div className="w-[800px] bg-gray-200 p-5 rounded-xl">
-        <div className="flex justify-between ">
-          <h1 className="font-bold text-3xl">Home</h1>
-          {isLoggedIn ? (
-            <button
-              className="py-2 px-3 bg-black text-white rounded-lg"
-              onClick={logoutHandler}
+    <div className="flex  min-h-screen">
+      <Sidenav />
+
+      <div className={`flex flex-col w-full  ${isSidebarOpen}`}>
+        <Navbar
+          onSidebarToggle={toggleSidebar}
+          isLoggedIn={isLoggedIn}
+          onLogout={logoutHandler}
+        />
+
+        <div className="main-content flex  ">
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          <div className="content grid w-full bg-gray-100 pl-6 ">
+            <div className="flex items-center justify-between ">
+              <h1 className="font-bold text-xl">List car</h1>
+              <Link to="/create-car">
+                <button className="py-2 px-3  text-white rounded-lg">
+                  <PlusCircleIcon className="w-8 h-8 text-black" />
+                </button>
+              </Link>
+            </div>
+
+            <div
+              className={`card-container mt-[10px] flex gap-y-4 gap-x-6 flex-wrap ${
+                isSidebarOpen ? "justify-start" : "justify-start "
+              }`}
             >
-              Logout
-            </button>
-          ) : (
-            <Link to="/login">
-              <button className="py-2 px-3 bg-black text-white rounded-lg">
-                Login
-              </button>
-            </Link>
-          )}
-        </div>
+              {!cars.length /*jika carsnya tidak ada maka */ && (
+                /*akan menjalankan "data kosong" */ <div>Data kosong</div>
+              )}
+              {cars.map((car: CarResponse) => (
+                <div
+                  key={car.id}
+                  className="card flex flex-col gap-4  shadow bg-white border-0  text-sm p-6  rounded-xl  w-[351px] "
+                >
+                  <img
+                    className="h-[190px] w-full object-cover "
+                    src={car.car_img}
+                  />
+                  <div className="card-body flex flex-col gap-2 ">
+                    <p className="card-title font-semibold ">{car.car_name}</p>
+                    <p className="font-semibold">
+                      Rp {car.car_rentperday} / hari
+                    </p>
+                    <p className="font-normal">Car size : {car.car_size}</p>
 
-        <div className="mt-[30px]">
-          <div className="flex items-center justify-between">
-            <h1 className="font-bold text-xl">List car</h1>
-            <Link to="/create-car">
-              <button className="py-2 px-3  text-white rounded-lg">
-                <PlusCircleIcon className="w-8 h-8 text-black" />
-              </button>
-            </Link>
-          </div>
+                    {car.created_by.id && (
+                      <div>
+                        <h3 className="font-normal">created_by</h3>
+                        <ul className="pl-4">
+                          <li className="font-normal">
+                            id : {car.created_by.id}
+                          </li>
+                          <li className="font-normal">
+                            username : {car.created_by.name}
+                          </li>
+                          <li className="font-normal">
+                            email : {car.created_by.email}
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                    {car.updated_by.id && (
+                      <div>
+                        <h3 className="font-normal">updated_by</h3>
+                        <ul className="pl-4">
+                          <li className="font-normal">
+                            id : {car.updated_by.id}
+                          </li>
+                          <li className="font-normal">
+                            username : {car.updated_by.name}
+                          </li>
+                          <li className="font-normal">
+                            email : {car.updated_by.email}
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                    {car.deleted_by.id && (
+                      <div>
+                        <h3 className="font-normal">deleted_by</h3>
+                        <ul className="pl-4">
+                          <li className="font-normal">
+                            id : {car.deleted_by.id}
+                          </li>
+                          <li className="font-normal">
+                            username : {car.deleted_by.name}
+                          </li>
+                          <li className="font-normal">
+                            email : {car.deleted_by.email}
+                          </li>
+                        </ul>
+                      </div>
+                    )}
 
-          <div className="card-container mt-[10px] grid gap-y-4 grid-cols-2">
-            {!cars.length /*jika carsnya tidak ada maka */ && (
-              /*akan menjalankan "data kosong" */ <div>Data kosong</div>
-            )}
-            {cars.map((car: CarResponse) => (
-              <div
-                key={car.id}
-                className="card flex flex-col gap-4 shadow bg-white border-0  text-sm p-6  rounded-xl  w-[351px] "
-              >
-                <img
-                  className="h-[190px] w-full object-cover "
-                  src={car.car_img}
-                />
-                <div className="card-body flex flex-col gap-2 ">
-                  <p className="card-title font-semibold ">{car.car_name}</p>
-                  <p className="font-semibold">
-                    Rp {car.car_rentperday} / hari
-                  </p>
-                  <p className="font-normal">Car size : {car.car_size}</p>
+                    {car.create_at && (
+                      <div className="flex gap-2">
+                        <ClockIcon className="h-5 w-5   " />
 
-                  {car.created_by.id && (
-                    <div>
-                      <h3 className="font-normal">created_by</h3>
-                      <ul className="pl-4">
-                        <li className="font-normal">
-                          id : {car.created_by.id}
-                        </li>
-                        <li className="font-normal">
-                          username : {car.created_by.name}
-                        </li>
-                        <li className="font-normal">
-                          email : {car.created_by.email}
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                  {car.updated_by.id && (
-                    <div>
-                      <h3 className="font-normal">updated_by</h3>
-                      <ul className="pl-4">
-                        <li className="font-normal">
-                          id : {car.updated_by.id}
-                        </li>
-                        <li className="font-normal">
-                          username : {car.updated_by.name}
-                        </li>
-                        <li className="font-normal">
-                          email : {car.updated_by.email}
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                  {car.deleted_by.id && (
-                    <div>
-                      <h3 className="font-normal">deleted_by</h3>
-                      <ul className="pl-4">
-                        <li className="font-normal">
-                          id : {car.deleted_by.id}
-                        </li>
-                        <li className="font-normal">
-                          username : {car.deleted_by.name}
-                        </li>
-                        <li className="font-normal">
-                          email : {car.deleted_by.email}
-                        </li>
-                      </ul>
-                    </div>
-                  )}
+                        <p className="font-light text-sm">
+                          create_at {car.create_at?.toString()}
+                        </p>
+                      </div>
+                    )}
+                    {car.update_at && (
+                      <div className="flex gap-2">
+                        <ClockIcon className="h-5 w-5   " />
+                        <p className="font-light text-sm">
+                          update_at {car.update_at?.toString()}
+                        </p>
+                      </div>
+                    )}
+                    {car.delete_at && (
+                      <div className="flex gap-2">
+                        <ClockIcon className="h-5 w-5   " />
+                        <p className="font-light text-sm">
+                          delete_at {car.delete_at?.toString()}
+                        </p>
+                      </div>
+                    )}
 
-                  {car.create_at && (
-                    <div className="flex gap-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-5 h-5"
+                    <div className="card-button mt-4 flex gap-2">
+                      <button
+                        className="inline-flex bg-transparent hover:bg-red-500 text-red-700 font-bold hover:text-white border border-red-500 hover:border-transparent rounded  w-[143.5px] h-12 items-center justify-center"
+                        onClick={() => deleteCar(car.id)}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <p className="font-light text-sm">
-                        create_at {car.create_at?.toString()}
-                      </p>
-                    </div>
-                  )}
-                  {car.update_at && (
-                    <div className="flex gap-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <p className="font-light text-sm">
-                        update_at {car.update_at?.toString()}
-                      </p>
-                    </div>
-                  )}
-                  {car.delete_at && (
-                    <div className="flex gap-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <p className="font-light text-sm">
-                        delete_at {car.delete_at?.toString()}
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="card-button mt-4 flex gap-2">
-                    <button
-                      className="inline-flex bg-transparent hover:bg-red-500 text-red-700 font-bold hover:text-white border border-red-500 hover:border-transparent rounded  w-[143.5px] h-12 items-center justify-center"
-                      onClick={() => deleteCar(car.id)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-[18px] h-[18px]"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                        />
-                      </svg>
-                      Delete
-                    </button>
-                    <button className=" bg-green-500 hover:bg-green-700 text-white  rounded w-[143.5px] h-12 ">
-                      <Link
-                        to={`/update-car/${car.id}`}
-                        className="inline-flex font-bold justify-center"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-[18px] h-[18px]"
+                        <TrashIcon className="h-5 w-5 " />
+                        Delete
+                      </button>
+                      <button className=" bg-green-500 hover:bg-green-700 text-white  rounded w-[143.5px] h-12 ">
+                        <Link
+                          to={`/update-car/${car.id}`}
+                          className="inline-flex font-bold justify-center"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                          />
-                        </svg>
-                        Edit
-                      </Link>
-                    </button>
+                          <PencilSquareIcon className="h-5 w-5" />
+                          Edit
+                        </Link>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      {showAlert && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-[4px] w-96">
-            <div className="flex flex-col w-full items-center gap-6">
-              <img
-                src="../src/assets/img-BeepBeep.png"
-                className=" h-[121px] w-[153px]"
-              />
-              <p className="text-lg font-semibold mb-4">Menghapus Data Mobil</p>
-            </div>
-            <div className="alertbody text-center mb-6">
-              <p>
-                Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin
-                ingin menghapus?
-              </p>
-            </div>
 
-            <div className="flex justify-center">
-              <button
-                className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
-                onClick={() => handleConfirmation(true)}
-              >
-                Ya
-              </button>
-              <button
-                className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
-                onClick={() => handleConfirmation(false)}
-              >
-                Tidak
-              </button>
+        {showAlert && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-[4px] w-96">
+              <div className="flex flex-col w-full items-center gap-6">
+                <img
+                  src="../src/assets/img-BeepBeep.png"
+                  className=" h-[121px] w-[153px]"
+                />
+                <p className="text-lg font-semibold mb-4">
+                  Menghapus Data Mobil
+                </p>
+              </div>
+              <div className="alertbody text-center mb-6">
+                <p>
+                  Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin
+                  ingin menghapus?
+                </p>
+              </div>
+
+              <div className="flex justify-center">
+                <button
+                  className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
+                  onClick={() => handleConfirmation(true)}
+                >
+                  Ya
+                </button>
+                <button
+                  className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
+                  onClick={() => handleConfirmation(false)}
+                >
+                  Tidak
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

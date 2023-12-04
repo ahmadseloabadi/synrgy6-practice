@@ -10,7 +10,10 @@ export default function Login() {
 
   return (
     <div className="flex items-center  justify-end  mx-auto md:h-screen  lg:py-0">
-      <img src="../src/assets/bg-login.png" className="w-2/3" />
+      <img
+        src="../src/assets/bg-login.png"
+        className="w-2/3 saturate-[300%] contrast-[175%] brightness-[70%] hue-rotate-[40deg]"
+      />
       <div className="form p-7s rounded-xl w-1/3">
         <h1 className="flex justify-center mb-6 text-2xl font-semibold dark:text-white">
           Login
