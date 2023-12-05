@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Sidenav from "./Sidenav";
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
+import Sidenav from "../components/Sidenav";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 const tweets_api_base_url = "http://localhost:8000";
 

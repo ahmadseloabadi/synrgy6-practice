@@ -6,9 +6,10 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
-import Sidenav from "./Sidenav";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Sidenav from "../components/Sidenav";
+import Alert from "./Alert";
 
 interface UserResponse {
   id: number;
@@ -123,7 +124,7 @@ export default function Home() {
     setIsLoggedIn(false);
   };
   return (
-    <div className="flex  min-h-screen">
+    <div className="flex  min-h-fit">
       <Sidenav />
 
       <div className={`flex flex-col w-full  ${isSidebarOpen}`}>
@@ -133,9 +134,9 @@ export default function Home() {
           onLogout={logoutHandler}
         />
 
-        <div className="main-content flex  ">
+        <div className="main-content flex h-full  ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="content grid w-full bg-gray-100 pl-6 ">
+          <div className="content grid w-full  bg-gray-100 pl-6 ">
             <div className="flex items-center justify-between ">
               <h1 className="font-bold text-xl">List car</h1>
               <Link to="/create-car">
@@ -146,7 +147,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`card-container mt-[10px] flex gap-y-4 gap-x-6 flex-wrap ${
+              className={`card-container mt-[10px]  flex gap-y-4 gap-x-6 flex-wrap ${
                 isSidebarOpen ? "justify-start" : "justify-start "
               }`}
             >
@@ -270,40 +271,10 @@ export default function Home() {
         </div>
 
         {showAlert && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-[4px] w-96">
-              <div className="flex flex-col w-full items-center gap-6">
-                <img
-                  src="../src/assets/img-BeepBeep.png"
-                  className=" h-[121px] w-[153px]"
-                />
-                <p className="text-lg font-semibold mb-4">
-                  Menghapus Data Mobil
-                </p>
-              </div>
-              <div className="alertbody text-center mb-6">
-                <p>
-                  Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin
-                  ingin menghapus?
-                </p>
-              </div>
-
-              <div className="flex justify-center">
-                <button
-                  className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
-                  onClick={() => handleConfirmation(true)}
-                >
-                  Ya
-                </button>
-                <button
-                  className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
-                  onClick={() => handleConfirmation(false)}
-                >
-                  Tidak
-                </button>
-              </div>
-            </div>
-          </div>
+          <Alert
+            onConfirm={() => handleConfirmation(true)}
+            onCancel={() => handleConfirmation(false)}
+          />
         )}
       </div>
     </div>

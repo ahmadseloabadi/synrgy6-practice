@@ -12,14 +12,14 @@ interface NavbarProps {
   onLogout: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({
+export default function Navbar({
   onSidebarToggle,
   isLoggedIn,
   onLogout,
-}) => {
+}: NavbarProps) {
   return (
     <div className="navbar flex  shadow items-center p-4 relative h-[70px] min-h-max ">
-      <div className="flex justify-around w-1/6">
+      <div className="flex justify-around w-1/6 md:justify-between ">
         <div className="logo w-24 h-8 bg-indigo-200 "></div>
         <button
           className="text-gray-700 cursor-pointer"
@@ -68,6 +68,4 @@ const Navbar: React.FC<NavbarProps> = ({
       </div>
     </div>
   );
-};
-
-export default Navbar;
+}

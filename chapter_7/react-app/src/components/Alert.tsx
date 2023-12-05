@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function Alert() {
+interface AlertProps {
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+export default function Alert({ onConfirm, onCancel }: AlertProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-[4px] w-96">
@@ -21,13 +26,13 @@ export default function Alert() {
         <div className="flex justify-center">
           <button
             className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
-            onClick={() => handleConfirmation(true)}
+            onClick={onConfirm}
           >
             Ya
           </button>
           <button
             className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
-            onClick={() => handleConfirmation(false)}
+            onClick={onCancel}
           >
             Tidak
           </button>
