@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Sidenav from "../components/Sidenav";
-import Alert from "./Alert";
+import Alert from "../components/Alert";
 
 interface UserResponse {
   id: number;
