@@ -54,8 +54,14 @@ export default function CreateCar() {
         <div className="main-content flex h-full ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <div className="form-input flex flex-col gap-y-4 items-start   w-full bg-gray-100 pl-6">
+            <p className=" text-md">
+              <strong>
+                Car {">"} List Car {">"}
+              </strong>{" "}
+              Add New Car
+            </p>
             <div className="flex items-center justify-between ">
-              <h1 className="font-bold text-xl"> Add New Car</h1>
+              <p className="font-bold text-xl"> Add New Car</p>
             </div>
             <div className="form p-7 dark:bg-white rounded-sm w-full ">
               <form className="w-full max-w-sm">

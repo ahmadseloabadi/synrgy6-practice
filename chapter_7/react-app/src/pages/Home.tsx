@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { PlusCircleIcon } from "@heroicons/react/20/solid";
 import {
   ClockIcon,
   PencilSquareIcon,
+  PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -137,11 +137,14 @@ export default function Home() {
         <div className="main-content flex h-full  ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <div className="content grid w-full  bg-gray-100 pl-6 ">
+            <p className=" text-md">
+              <strong>Car {">"} </strong>List Car
+            </p>
             <div className="flex items-center justify-between ">
-              <h1 className="font-bold text-xl">List car</h1>
+              <p className="font-bold text-xl">List car</p>
               <Link to="/create-car">
-                <button className="py-2 px-3  text-white rounded-lg">
-                  <PlusCircleIcon className="w-8 h-8 text-black" />
+                <button className="flex py-2 px-3  text-white rounded-sm bg-blue-800">
+                  <PlusIcon className="h-6 w-6 text-white" /> Add New Car
                 </button>
               </Link>
             </div>

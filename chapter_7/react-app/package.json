@@ -12,9 +12,11 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "classnames": "^2.3.2",
+    "flowbite-react": "^0.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.0"
+    "react-router-dom": "^6.20.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
