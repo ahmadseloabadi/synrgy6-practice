@@ -15,7 +15,7 @@ export default function Login() {
         className="w-2/3 saturate-[200%] contrast-[110%] brightness-[70%] "
       />
       <div className="form p-7s rounded-xl w-1/3">
-        <h1 className="flex justify-center mb-6 text-2xl font-semibold dark:text-white">
+        <h1 className="flex justify-center mb-6 text-2xl font-semibold text-white">
           Login
         </h1>
 
@@ -86,11 +86,12 @@ export default function Login() {
                 if (response.status !== 200) {
                   alert("error: " + responseJson.message);
                 }
-
+                console.log("ini responejson :", responseJson);
                 localStorage.setItem(
                   "access_token",
                   responseJson.data.access_token
                 );
+                localStorage.setItem("email", payload.email);
 
                 // If login succeed, redirect ke home
                 navigate("/");

@@ -1,6 +1,9 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Hero() {
+  const location = useLocation();
+  console.log("url :", location.pathname);
   return (
     <section className="hero bg-indigo-50">
       <nav className=" w-full ">
@@ -61,9 +64,15 @@ export default function Hero() {
             terbaik dengan harga terjangkau. Selalu siap melayani kebutuhanmu
             untuk sewa mobil selama 24 jam.
           </p>
-          <button className="inline-block align-middle  border-green-500 bg-green-500 hover:bg-white text-white font-bold text-sm hover:text-green-500 border dark:borde  r-green-500 hover:border-green-500 rounded-sm  w-[160px] h-9 px-3 py-2  ">
-            Mulai Sewa Mobil
-          </button>
+          <Link to="/search-car">
+            <button
+              className={`inline-block align-middle  border-green-500 bg-green-500 hover:bg-white text-white font-bold text-sm hover:text-green-500 border dark:borde  r-green-500 hover:border-green-500 rounded-sm  w-[160px] h-9 px-3 py-2 ${
+                location.pathname == "/search-car" ? "hidden" : ""
+              }  `}
+            >
+              Mulai Sewa Mobil
+            </button>
+          </Link>
         </div>
         <img src="../src/assets/img_car.png" alt="" />
       </div>

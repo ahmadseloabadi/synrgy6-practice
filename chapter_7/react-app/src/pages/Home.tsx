@@ -10,6 +10,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Sidenav from "../components/Sidenav";
 import Alert from "../components/Alert";
+import { format, parseISO } from "date-fns";
 
 interface UserResponse {
   id: number;
@@ -120,6 +121,7 @@ export default function Home() {
 
   const logoutHandler = () => {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("email");
 
     setIsLoggedIn(false);
   };
@@ -136,15 +138,16 @@ export default function Home() {
 
         <div className="main-content flex h-full  ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="content grid w-full  bg-gray-100 pl-6 ">
+          <div className="content grid w-full  bg-gray-100 px-6 pt-9 ">
             <p className=" text-md">
               <strong>Car {">"} </strong>List Car
             </p>
             <div className="flex items-center justify-between ">
               <p className="font-bold text-xl">List car</p>
               <Link to="/create-car">
-                <button className="flex py-2 px-3  text-white rounded-sm bg-blue-800">
-                  <PlusIcon className="h-6 w-6 text-white" /> Add New Car
+                <button className="flex py-2 px-3 font-bold text-sm items-center gap-x-3 text-white rounded-sm bg-blue-800">
+                  <PlusIcon className="h-[18px] w-[18px] stroke-2 text-white " />{" "}
+                  Add New Car
                 </button>
               </Link>
             </div>
@@ -227,7 +230,11 @@ export default function Home() {
                         <ClockIcon className="h-5 w-5   " />
 
                         <p className="font-light text-sm">
-                          create_at {car.create_at?.toString()}
+                          create_at{" "}
+                          {format(
+                            parseISO(`${car.create_at}`),
+                            "dd/MM/yyyy HH:mm:ss a"
+                          )}
                         </p>
                       </div>
                     )}
@@ -235,7 +242,11 @@ export default function Home() {
                       <div className="flex gap-2">
                         <ClockIcon className="h-5 w-5   " />
                         <p className="font-light text-sm">
-                          update_at {car.update_at?.toString()}
+                          update_at{" "}
+                          {format(
+                            parseISO(`${car.update_at}`),
+                            "dd/MM/yyyy HH:mm:ss a"
+                          )}
                         </p>
                       </div>
                     )}

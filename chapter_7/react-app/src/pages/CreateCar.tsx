@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sidenav from "../components/Sidenav";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { Select } from "antd";
 
 const tweets_api_base_url = "http://localhost:8000";
 
@@ -53,7 +54,7 @@ export default function CreateCar() {
         />
         <div className="main-content flex h-full ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="form-input flex flex-col gap-y-4 items-start   w-full bg-gray-100 pl-6">
+          <div className="form-input flex flex-col gap-y-4 items-start   w-full bg-gray-100 px-6 pt-9">
             <p className=" text-md">
               <strong>
                 Car {">"} List Car {">"}
@@ -63,7 +64,7 @@ export default function CreateCar() {
             <div className="flex items-center justify-between ">
               <p className="font-bold text-xl"> Add New Car</p>
             </div>
-            <div className="form p-7 dark:bg-white rounded-sm w-full ">
+            <div className="form p-7 bg-white rounded-sm w-full ">
               <form className="w-full max-w-sm">
                 <div className="mb-3 flex flex-row">
                   <div className="md:w-1/3">
@@ -98,16 +99,26 @@ export default function CreateCar() {
                     </label>
                   </div>
                   <div className="md:w-2/3">
-                    <input
-                      className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
-                      id="inline-full-name"
-                      type="text"
-                      value={car_size}
-                      onChange={({ target }) => {
-                        setCarSize(target.value);
-                      }}
-                      placeholder="Enter car size"
-                    />
+                    <Select
+                      id="size"
+                      className="appearance-none border-[1px] border-black rounded   text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px] h-[38px]"
+                      value={car_size || "Enter Car Size"}
+                      options={[
+                        {
+                          value: "S",
+                          label: "Small",
+                        },
+                        {
+                          value: "M",
+                          label: "Medium",
+                        },
+                        {
+                          value: "L",
+                          label: "Large",
+                        },
+                      ]}
+                      onChange={(value) => setCarSize(value)}
+                    ></Select>
                   </div>
                 </div>
 
@@ -146,7 +157,7 @@ export default function CreateCar() {
                   <div className="md:w-2/3">
                     <input
                       className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
-                      id="inline-full-name"
+                      id="img_car"
                       type="file"
                       onChange={handleFileChange}
                     />
@@ -156,7 +167,7 @@ export default function CreateCar() {
             </div>
             <div className="button-contain flex gap-x-4 items-end h-full mb-10">
               <button
-                className="inline-flex bg-transparent hover:bg-blue-900 dark:text-blue-900 font-bold hover:text-white border dark:border-blue-900 hover:border-transparent rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
+                className="inline-flex bg-transparent hover:bg-blue-900 text-blue-900 font-bold hover:text-white border border-blue-800 hover:border-transparent rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
                 typeof="button"
                 onClick={async (e) => {
                   e.preventDefault();
@@ -167,7 +178,7 @@ export default function CreateCar() {
                 Cancel
               </button>
               <button
-                className="inline-flex  bg-blue-900 hover:bg-gray-300 dark:text-white font-bold hover:text-white border dark:border-blue-900 hover:border-gray-300 rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
+                className="inline-flex  bg-blue-900 hover:bg-gray-300 text-white font-bold hover:text-white border border-blue-800 hover:border-gray-300 rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center "
                 typeof="button"
                 onClick={async (e) => {
                   e.preventDefault();

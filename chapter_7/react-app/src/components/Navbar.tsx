@@ -1,8 +1,10 @@
 // Navbar.tsx
 import {
+  ChevronDownIcon,
   ListBulletIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { Dropdown } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -17,6 +19,7 @@ export default function Navbar({
   isLoggedIn,
   onLogout,
 }: NavbarProps) {
+  const email = localStorage.getItem("email");
   return (
     <div className="navbar flex  shadow items-center p-4 relative h-[70px] min-h-max ">
       <div className="flex justify-around w-1/6 md:justify-between ">
@@ -44,27 +47,48 @@ export default function Navbar({
             />
             <button
               type="submit"
-              className="inline-flex bg-transparent hover:bg-blue-900 dark:text-blue-900 font-bold hover:text-white border dark:border-blue-900 hover:border-transparent rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center"
+              className="inline-flex bg-transparent hover:bg-blue-900 text-blue-800 font-bold hover:text-white border border-blue-800 hover:border-transparent rounded-sm  w-[71px] h-9 px-3 py-2 items-center justify-center"
             >
               Search
             </button>
           </div>
         </form>
-
-        {isLoggedIn ? (
-          <button
-            className="ml-4 py-2 px-3 bg-black text-white rounded-lg"
-            onClick={onLogout}
-          >
-            Logout
-          </button>
-        ) : (
-          <Link to="/login">
-            <button className="ml-4 py-2 px-3 bg-black text-white rounded-lg">
-              Login
-            </button>
-          </Link>
-        )}
+        <div className="flex items-center gap-x-2 ml-6 w-[143px]">
+          <div className="rounded-full bg-indigo-200 w-9 h-9 flex justify-center items-center ">
+            <h1 className="font-bold text-base ">
+              {Array.from(email || "who am i")[0]}
+            </h1>
+          </div>
+          <div className="w-2/3 truncate ...">
+            <Dropdown
+              label=""
+              inline
+              renderTrigger={() => (
+                <span>
+                  {email || "who am i"}
+                  <ChevronDownIcon className="ml-2 inline-flex h-5 w-5 text-black" />
+                </span>
+              )}
+            >
+              <Dropdown.Item content="fit">
+                {isLoggedIn ? (
+                  <button
+                    className=" w-full py-2 px-3 bg-transparent text-black rounded-lg"
+                    onClick={onLogout}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/login">
+                    <button className=" w-full py-2 px-3 bg-transparent text-black rounded-lg">
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </Dropdown.Item>
+            </Dropdown>
+          </div>
+        </div>
       </div>
     </div>
   );

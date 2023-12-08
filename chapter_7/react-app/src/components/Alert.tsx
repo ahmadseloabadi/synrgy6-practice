@@ -25,13 +25,13 @@ export default function Alert({ onConfirm, onCancel }: AlertProps) {
 
         <div className="flex justify-center">
           <button
-            className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-900 rounded-[2px] w-[87px] font-bold text-[14px]"
+            className="mr-4 px-3 py-2 bg-blue-900 text-white  hover:bg-white  hover:text-blue-900 border border-blue-800 rounded-[2px] w-[87px] font-bold text-[14px]"
             onClick={onConfirm}
           >
             Ya
           </button>
           <button
-            className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-900 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
+            className="bg-transparent hover:bg-blue-900 text-blue-900  hover:text-white py-2 px-4 border border-blue-800 hover:border-transparent rounded-[2px] w-[87px] font-bold text-[14px]"
             onClick={onCancel}
           >
             Tidak
