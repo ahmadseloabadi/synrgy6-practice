@@ -1,0 +1,7 @@
+tags:
+  - name: Auth
+    description: Auth endpoints
+  # - name: Users
+  #   description: Users endpoints
+  - name: Cars
+    description: Cars endpoints

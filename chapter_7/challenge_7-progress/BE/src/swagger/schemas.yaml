@@ -1,0 +1,174 @@
+components:
+  schemas:
+    Default:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+    AuthLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: superadmin@superadmin.com
+        password:
+          type: string
+          format: password
+          example: superadmin
+        role:
+          type: string
+          example: superadmin
+    AuthLoginResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+    AuthRegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: coba
+        email:
+          type: string
+          example: coba@gmail.com
+        password:
+          type: string
+          format: password
+          example: coba123456
+        profile_picture_url:
+          type: string
+          example: coba.png
+        role:
+          type: string
+    AuthRegisterResponse:
+      type: object
+      properties:
+        registered_user:
+          type: object
+          properties:
+            id:
+              type: integer
+            email:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+              format: password
+            profile_picture_url:
+              type: string
+            role:
+              type: string
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: bos
+        email:
+          type: string
+          example: bos@gmail.com
+        password:
+          type: string
+          format: password
+          example: bos123456
+        profile_picture_url:
+          type: string
+          format: binary
+        role:
+          type: string
+          example: user
+    UserResponse:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            email:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+              format: password
+            profile_picture_url:
+              type: string
+            role:
+              type: string
+    CarRequest:
+      type: object
+      properties:
+        car_name:
+          type: string
+        car_rentperday:
+          type: integer
+        car_size:
+          type: string
+        car_img:
+          type: string
+          format: binary
+    CarResponse:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            car_name:
+              type: string
+            car_rentperday:
+              type: string
+            car_size:
+              type: string
+            car_img:
+              type: string
+    CarDataResponse1:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            create_by:
+              type: integer
+            update_by:
+              type: integer
+            delete_by:
+              type: integer
+            create_at:
+              type: string
+              format: date-time
+            update_at:
+              type: string
+              format: date-time
+            delete_at:
+              type: string
+              format: date-time
+    CarDataResponse2:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            created_by:
+              type: object
+            updated_by:
+              type: object
+            deleted_by:
+              type: object
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            deleted_at:
+              type: string
+              format: date-time

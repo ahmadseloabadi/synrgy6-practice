@@ -1,0 +1,164 @@
+# paths:
+#   /api/users:
+#     get:
+#       summary: Get List Users
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: List Users
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
+#     post:
+#       summary: Created User
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - multipart/form-data
+#       requestBody:
+#         required: true
+#         content:
+#           "multipart/form-data":
+#             schema:
+#               $ref: "#/components/schemas/UserRequest"
+
+#       produces:
+#         - application/json
+#       responses:
+#         201:
+#           description: Created User
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
+#   /api/users/{id}:
+#     parameters:
+#       - name: id
+#         in: path
+#         required: true
+#         description: ID of the user
+#         schema:
+#           type: integer
+#     get:
+#       summary: Get List Users By ID
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: List Users
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
+#     delete:
+#       summary: Delete User
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: Delete User
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
+#     patch:
+#       summary: Update User
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - multipart/form-data
+#       requestBody:
+#         required: true
+#         content:
+#           "multipart/form-data":
+#             schema:
+#               $ref: "#/components/schemas/UserRequest"
+#       produces:
+#         - application/json
+
+#       responses:
+#         200:
+#           description: Update User
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
+#   /api/users?name={name}:
+#     parameters:
+#       - name: name
+#         in: path
+#         required: true
+#         description: Name of the user
+#         schema:
+#           type: string
+#     get:
+#       summary: Get List Users By Name
+#       security:
+#         - BearerAuth: []
+#       tags:
+#         - Users
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: List Users
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/Default"
+#                   - properties:
+#                       data:
+#                         allOf:
+#                           - $ref: "#/components/schemas/UserResponse"
