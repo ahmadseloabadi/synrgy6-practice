@@ -11,7 +11,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   const location = useLocation();
   return (
     <div
-      className={`sidebar w-[290px] flex flex-col gap-y-2 ${
+      className={`sidebar w-[220px] flex flex-col gap-y-2 ${
         isOpen ? "" : "hidden"
       }`}
     >

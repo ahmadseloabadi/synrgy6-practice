@@ -43,9 +43,9 @@ export default function Home() {
   const [showAlert, setShowAlert] = useState(false);
   const [carToDelete, setCarToDelete] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [filteredSize, setFilteredSize] = useState(String); // Default to show all sizes
+  const [filteredSize, setFilteredSize] = useState(String);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10); // Sesuaikan dengan kebutuhan Anda
+  const [pageSize, setPageSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
   const totalPages = Math.ceil(totalItems / pageSize);
   console.log("totalItems from query :", totalItems);
@@ -171,13 +171,13 @@ export default function Home() {
           onLogout={logoutHandler}
         />
 
-        <div className="main-content flex h-full  ">
+        <div className="main-content flex h-full bg-gray-100  ">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="content grid w-full  bg-gray-100 px-6 pt-9 ">
-            <p className=" text-md">
+          <div className="content-items grid w-full h-fit  px-6 pt-9 ">
+            <p className=" text-md ">
               <strong>Car {">"} </strong>List Car
             </p>
-            <div className="flex items-center justify-between ">
+            <div className="flex items-center justify-between h-fit ">
               <p className="font-bold text-xl">List car</p>
               <Link to="/create-car">
                 <button className="flex py-2 px-3 font-bold text-sm items-center gap-x-3 text-white rounded-sm bg-blue-800">
@@ -186,12 +186,12 @@ export default function Home() {
                 </button>
               </Link>
             </div>
-            <div className="flex gap-x-4">
+            <div className="flex gap-x-4 h-fit">
               {["All", "Small", "Medium", "Large"].map((size) => (
                 <button
                   key={size}
                   onClick={() => filterBySize(size)}
-                  className={` border-2 border-blue-800 font-bold text-blue-800 py-2 px-3 rounded-sm hover:text-white hover:bg-blue-800 ${
+                  className={` border-2 border-blue-800 font-bold text-blue-800 py-2 px-3 rounded-sm hover:text-white hover:bg-blue-800 h-11 ${
                     size === filteredSize
                       ? "text-white bg-blue-800"
                       : " bg-indigo-200"
@@ -203,7 +203,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`card-container mt-5  flex gap-y-4 gap-x-6 flex-wrap ${
+              className={`card-container mt-5 h-full flex gap-y-4 gap-x-6 flex-wrap ${
                 isSidebarOpen ? "justify-start" : "justify-start "
               }`}
             >
@@ -235,9 +235,9 @@ export default function Home() {
                       <div>
                         <h3 className="font-normal">created_by</h3>
                         <ul className="pl-4">
-                          <li className="font-normal">
+                          {/* <li className="font-normal">
                             id : {car.created_by.id}
-                          </li>
+                          </li> */}
                           <li className="font-normal">
                             username : {car.created_by.name}
                           </li>
@@ -251,9 +251,9 @@ export default function Home() {
                       <div>
                         <h3 className="font-normal">updated_by</h3>
                         <ul className="pl-4">
-                          <li className="font-normal">
+                          {/* <li className="font-normal">
                             id : {car.updated_by.id}
-                          </li>
+                          </li> */}
                           <li className="font-normal">
                             username : {car.updated_by.name}
                           </li>
@@ -267,9 +267,9 @@ export default function Home() {
                       <div>
                         <h3 className="font-normal">deleted_by</h3>
                         <ul className="pl-4">
-                          <li className="font-normal">
+                          {/* <li className="font-normal">
                             id : {car.deleted_by.id}
-                          </li>
+                          </li> */}
                           <li className="font-normal">
                             username : {car.deleted_by.name}
                           </li>
