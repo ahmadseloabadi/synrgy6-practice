@@ -43,19 +43,34 @@ export default function Home() {
   const [showAlert, setShowAlert] = useState(false);
   const [carToDelete, setCarToDelete] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [filteredSize, setFilteredSize] = useState("All"); // Default to show all sizes
+  const [filteredSize, setFilteredSize] = useState(String); // Default to show all sizes
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10); // Sesuaikan dengan kebutuhan Anda
+  const [totalItems, setTotalItems] = useState(0);
+  const totalPages = Math.ceil(totalItems / pageSize);
+  console.log("totalItems from query :", totalItems);
+  console.log("totalpages from app :", totalPages);
+  console.log("currentpages from app :", currentPage);
+  console.log("filtersize from app :", filteredSize);
 
-  const filterBySize = (size: string) => {
-    setFilteredSize(size);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
-  // Use the filteredSize state to display only the cards that match the selected size
-  const filteredCars = cars.filter((car: CarResponse) => {
-    if (filteredSize === "All") {
-      return true; // Show all cards if "All" is selected
-    }
-    return car.car_size === filteredSize;
-  });
+  const filterBySize = (size: string) => {
+    setFilteredSize(size === "All" ? " " : size);
+
+    setCurrentPage(1);
+    console.log("Filter by size:", size);
+  };
+
+  // // Use the filteredSize state to display only the cards that match the selected size
+  // const filteredCars = cars.filter((car: CarResponse) => {
+  //   if (filteredSize === "All") {
+  //     return true; // Show all cards if "All" is selected
+  //   }
+  //   return car.car_size === filteredSize;
+  // });
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -64,11 +79,15 @@ export default function Home() {
   useEffect(() => {
     //akan di running pertama kali saat halaman di load
     const fetchCars = async () => {
-      const response = await fetch(cars_api_base_url + "/api/cars");
+      const response = await fetch(
+        cars_api_base_url +
+          `/api/cars?page=${currentPage}&pageSize=${pageSize}&size=${filteredSize}`
+      );
       const responseJSON = await response.json();
 
       console.log("response", responseJSON);
       setCars(responseJSON.data.cars);
+      setTotalItems(responseJSON.data.totalItems);
     };
 
     const checkIsLoggedIn = () => {
@@ -80,7 +99,7 @@ export default function Home() {
 
     fetchCars();
     checkIsLoggedIn();
-  }, []);
+  }, [currentPage, pageSize, filteredSize]);
 
   const deleteCar = async (carId: any) => {
     try {
@@ -188,7 +207,7 @@ export default function Home() {
                 isSidebarOpen ? "justify-start" : "justify-start "
               }`}
             >
-              {!filteredCars.length /*jika carsnya tidak ada maka */ && (
+              {!cars.length /*jika carsnya tidak ada maka */ && (
                 /*akan menjalankan "data kosong" */ <div className=" min-h-screen w-full ">
                   <div className="w-fit h-fit py-3 px-4 shadow bg-white rounded-md">
                     <h1 className="medium-header">Empty Cars Data </h1>
@@ -196,7 +215,7 @@ export default function Home() {
                 </div>
               )}
 
-              {filteredCars.map((car: CarResponse) => (
+              {cars.map((car: CarResponse) => (
                 <div
                   key={car.id}
                   className="card flex flex-col gap-4  shadow bg-white border-0  text-sm p-6  rounded-xl  w-[351px] "
@@ -316,6 +335,38 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="pagination flex items-center justify-center  px-4 py-3  ">
+              <div className=" flex  justify-start gap-x-2">
+                <button
+                  className="pagination-button relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Prev
+                </button>
+
+                {/* Tampilkan daftar angka halaman */}
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    className={`pagination-button relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+
+                <button
+                  className="pagination-button relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={cars.length < pageSize}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
