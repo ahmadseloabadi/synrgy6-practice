@@ -203,8 +203,10 @@ export default function Home() {
             </div>
 
             <div
-              className={`card-container mt-5 h-full flex gap-y-4 gap-x-6 flex-wrap ${
-                isSidebarOpen ? "justify-start" : "justify-start "
+              className={`card-container mt-5 h-full flex gap-y-4 flex-wrap ${
+                isSidebarOpen
+                  ? "justify-start gap-x-6 "
+                  : "justify-start gap-x-2 "
               }`}
             >
               {!cars.length /*jika carsnya tidak ada maka */ && (
@@ -231,38 +233,32 @@ export default function Home() {
                     </p>
                     <p className="font-normal">Car size : {car.car_size}</p>
 
-                    {car.created_by.id && (
-                      <div>
-                        <h3 className="font-normal">created_by</h3>
-                        <ul className="pl-4">
-                          {/* <li className="font-normal">
+                    <h3 className="font-normal">created_by</h3>
+                    <ul className="pl-4">
+                      {/* <li className="font-normal">
                             id : {car.created_by.id}
                           </li> */}
-                          <li className="font-normal">
-                            username : {car.created_by.name}
-                          </li>
-                          <li className="font-normal">
-                            email : {car.created_by.email}
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                    {car.updated_by.id && (
-                      <div>
-                        <h3 className="font-normal">updated_by</h3>
-                        <ul className="pl-4">
-                          {/* <li className="font-normal">
+                      <li className="font-normal">
+                        username : {car.created_by.name || "-"}
+                      </li>
+                      <li className="font-normal">
+                        email : {car.created_by.email || "-"}
+                      </li>
+                    </ul>
+
+                    <h3 className="font-normal">updated_by</h3>
+                    <ul className="pl-4">
+                      {/* <li className="font-normal">
                             id : {car.updated_by.id}
                           </li> */}
-                          <li className="font-normal">
-                            username : {car.updated_by.name}
-                          </li>
-                          <li className="font-normal">
-                            email : {car.updated_by.email}
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      <li className="font-normal">
+                        username : {car.updated_by.name || "-"}
+                      </li>
+                      <li className="font-normal">
+                        email : {car.updated_by.email || "-"}
+                      </li>
+                    </ul>
+
                     {car.deleted_by.id && (
                       <div>
                         <h3 className="font-normal">deleted_by</h3>
@@ -271,10 +267,10 @@ export default function Home() {
                             id : {car.deleted_by.id}
                           </li> */}
                           <li className="font-normal">
-                            username : {car.deleted_by.name}
+                            username : {car.deleted_by.name || "-"}
                           </li>
                           <li className="font-normal">
-                            email : {car.deleted_by.email}
+                            email : {car.deleted_by.email || "-"}
                           </li>
                         </ul>
                       </div>
@@ -322,7 +318,7 @@ export default function Home() {
                         <TrashIcon className="h-5 w-5 " />
                         Delete
                       </button>
-                      <button className="flex bg-green-500 hover:bg-green-700 items-center justify-center text-white  rounded w-[143.5px] h-12 ">
+                      <button className="flex bg-green-400 hover:bg-green-500 items-center justify-center text-white  rounded w-[143.5px] h-12 ">
                         <Link
                           to={`/update-car/${car.id}`}
                           className=" flex font-bold  "
@@ -336,7 +332,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="pagination flex items-center justify-center  px-4 py-3  ">
+            <div className="pagination flex items-center justify-center mt-6  px-4 py-3  ">
               <div className=" flex  justify-start gap-x-2">
                 <button
                   className="pagination-button relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"

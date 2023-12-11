@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Sidenav from "../components/Sidenav";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { Select } from "antd";
 
 const tweets_api_base_url = "http://localhost:8000";
 
@@ -92,16 +93,26 @@ export default function UpdateCar() {
                     </label>
                   </div>
                   <div className="md:w-2/3">
-                    <input
-                      className="appearance-none border-[1px] border-black rounded  py-2 px-3 text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px]"
-                      id="inline-full-name"
-                      type="text"
-                      value={car_size}
-                      onChange={({ target }) => {
-                        setCarSize(target.value);
-                      }}
-                      placeholder="Enter car size"
-                    />
+                    <Select
+                      id="size"
+                      className="appearance-none border-[1px] border-black rounded   text-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[315px] h-[38px]"
+                      value={car_size || "Enter Car Size"}
+                      options={[
+                        {
+                          value: "Small",
+                          label: "Small",
+                        },
+                        {
+                          value: "Medium",
+                          label: "Medium",
+                        },
+                        {
+                          value: "Large",
+                          label: "Large",
+                        },
+                      ]}
+                      onChange={(value) => setCarSize(value)}
+                    ></Select>
                   </div>
                 </div>
 
