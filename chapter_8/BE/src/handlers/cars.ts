@@ -3,25 +3,27 @@ import { DefaultResponse } from "../models/dto/default";
 import { Car } from "../models/entity/car";
 import { CarRequest } from "../models/dto/car";
 import CarsService from "../services/cars";
-import CarServices from "../services/cars";
 
 class CarsHandler {
-  _carsService: CarServices;
+  _carsService: CarsService;
 
-  constructor(carServices: CarServices) {
+  constructor(carServices: CarsService) {
     this._carsService = carServices;
 
     // Bind methods, so they can access the properties
     this.getCars = this.getCars.bind(this);
+    this.getCarsById = this.getCarsById.bind(this);
     this.createCar = this.createCar.bind(this);
+    this.deleteCarById = this.deleteCarById.bind(this);
+    this.updateCarById = this.updateCarById.bind(this);
   }
   async getCars(req: Request, res: Response) {
     const page = parseInt(req.query.page as string); // Mengambil nilai halaman dari query string
     const pageSize = parseInt(req.query.pageSize as string); // Mengambil nilai ukuran halaman dari query string
     const sizeFilter: string | undefined = req.query.size as string | undefined;
-    console.log("page + pagesize", page, pageSize);
+    console.log("page + pagesize + sizefilter", page, pageSize, sizeFilter);
     try {
-      const { cars, totalItems } = await CarsService.getCars(
+      const { cars, totalItems } = await this._carsService.getCars(
         page,
         pageSize,
         sizeFilter
@@ -48,7 +50,7 @@ class CarsHandler {
   async getCarsById(req: Request, res: Response) {
     const queryId: number = parseInt(req.params.id);
 
-    const carsList: Car[] = await CarsService.getCarsById(queryId);
+    const carsList = await this._carsService.getCarsById(queryId);
 
     if (carsList.length === 0) {
       const Response: DefaultResponse = {
@@ -94,7 +96,7 @@ class CarsHandler {
 
     console.log("payload createcar :", payload);
 
-    const createdCar: Car = await CarsService.createCar(payload);
+    const createdCar: Car = await this._carsService.createCar(payload);
 
     const response: DefaultResponse = {
       status: "CREATED",
@@ -110,7 +112,7 @@ class CarsHandler {
   async deleteCarById(req: Request, res: Response) {
     const queryId: number = parseInt(req.params.id);
     const deletedBy = req.user.id as number; // Menggunakan ID pengguna dari data pengguna yang diautentikasi
-    const deletedCar: Car | null = await CarsService.deleteCarById(
+    const deletedCar: Car | null = await this._carsService.deleteCarById(
       queryId,
       deletedBy
     );
@@ -163,7 +165,7 @@ class CarsHandler {
     }
 
     console.log(payload);
-    const updatedCar: Car | null = await CarsService.updateCarById(
+    const updatedCar: Car | null = await this._carsService.updateCarById(
       queryId,
       payload
     );
