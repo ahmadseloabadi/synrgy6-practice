@@ -11,7 +11,7 @@ class CarsRepository {
     let query = CarEntity.query()
       .withGraphFetched("[created_by, updated_by, deleted_by]")
       .whereNull("delete_at");
-    console.log("size :", sizeFilter);
+
     if (sizeFilter) {
       query = query.where("car_size", sizeFilter);
     }

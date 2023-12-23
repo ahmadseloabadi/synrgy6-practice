@@ -1,0 +1,20 @@
+# Build Stage
+FROM node:20-alpine as build-image
+WORKDIR /usr/src/app
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY ./src ./src
+COPY @types ./@types
+RUN npm install
+RUN npx tsc
+
+# Production Stage
+FROM node:20-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+COPY @types ./@types
+COPY --from=build-image /usr/src/app/dist ./dist
+RUN npm install --production
+COPY . .
+EXPOSE 8080
+CMD [ "node", "dist/server.js" ]

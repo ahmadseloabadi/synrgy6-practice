@@ -56,3 +56,9 @@ const config: { [key: string]: Knex.Config } = {
 };
 
 module.exports = config;
+
+// database: "railway",
+// user: "postgres",
+// password: "f-6E4cAcEcbb6eF1EBC-2eBdgCa1e15E",
+// port: 22823,
+// host: "viaduct.proxy.rlwy.net",

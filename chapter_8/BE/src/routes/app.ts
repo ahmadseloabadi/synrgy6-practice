@@ -16,7 +16,7 @@ import CarServices from "../services/cars";
 dotenv.config();
 
 const app: Application = express();
-const PORT = process.env.APP_PORT;
+// const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -112,6 +112,8 @@ app.get(
 // Google Auth
 app.get("/api/auth/login/google", authHandler.loginGoogle);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
+
+export default app;
